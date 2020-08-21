@@ -8,6 +8,13 @@ module.exports = {
       { text: 'guide', link: '/guide/' },
       { text: 'doc', link: '/doc/' }
     ],
-    sidebar: 'auto'
+    sidebar: {
+      '/guide/': 'auto',
+      '/doc/': [
+        '',
+        'function'
+      ]
+    },
+    lastUpdated: 'Last Updated'
   }
 }

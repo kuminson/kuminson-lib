@@ -48,7 +48,7 @@ export default {
     return uuid.join('');
   },
   /**
-   * 文本中间省略号
+   * 根据容器宽度对给定文本进行中间省略
    * @param {string} id - 目标dom的id
    * @param {(string|number)} text - 要处理的文本
    * @return {string} 处理后中间增加省略号的文本

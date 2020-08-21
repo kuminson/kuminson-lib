@@ -17,8 +17,9 @@ packages/*/node_modules
 !.yarn/versions
 .pnp.*
 
-
-/**/stats.json
+#dist
+/**/dist/stats.json
+packages/**/.vuepress/dist/
 
 # IDEs and editors
 /.idea
