@@ -3,7 +3,7 @@ home: true
 heroText: '@kuminson/utils'
 tagline: 私人常用方法库
 actionText: 方法文档 →
-actionLink: /zh/guide/
+actionLink: /guide/
 features:
 - title: 未经过label打包
   details: 体积更小，可以随项目一起打包，更灵活

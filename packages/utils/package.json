@@ -3,9 +3,14 @@
   "version": "0.0.1",
   "description": "Personal utility",
   "author": "kuminson <273423480@qq.com>",
-  "homepage": "",
+  "homepage": "http://kuminson.com/utils/",
   "license": "ISC",
   "main": "dist/utils.js",
+  "module": "lib/index.js",
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/kuminson/utils"
+  },
   "directories": {
     "lib": "lib",
     "dist": "dist",

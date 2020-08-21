@@ -2,7 +2,7 @@ module.exports = {
   base: '/utils/',
   title: '@kuminson/utils',
   description: '私人常用方法库',
-  port: '4001',
+  port: '4002',
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },
