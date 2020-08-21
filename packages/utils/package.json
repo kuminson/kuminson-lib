@@ -20,7 +20,8 @@
     "build:report": "env_report=1 webpack",
     "report": "webpack-bundle-analyzer --port 4444 ./dist/stats.json",
     "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:build": "vuepress build docs",
+    "deploy": "sh ./deploy.sh"
   },
   "devDependencies": {
     "@babel/core": "^7.11.1",

@@ -1,4 +1,5 @@
 module.exports = {
+  base: '/utils/',
   title: '@kuminson/utils',
   description: '私人常用方法库',
   port: '4001',
