@@ -45,4 +45,31 @@ setTimeout(() => {
 上面方法会在3秒后第三次调用`counter.fire()`后，会触发`doSomeThing`方法。
 
 
+## NoScrollPuncture
 
+
+- 描述
+
+禁止滚动穿刺
+
+- 实例化：
+
+`new utils.NoScrollPuncture(selector)`
+
+- 实例化参数：
+
+   - `{stirng} selector` - 目标标签css选择器
+
+- 实例方法：
+
+   - `removeEvent()` - 解除邦定的事件
+
+- 用法：
+
+``` js
+const ns = new utils.NoScrollPuncture('.test')
+
+setTimeout(() => {
+  ns.removeEvent()
+}, 2000)
+```

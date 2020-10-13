@@ -44,6 +44,67 @@ class FireCounter {
   }
 }
 
+/**
+ * 禁止滚动穿刺
+ * @param {stirng} selector - 目标标签css选择器
+ */
+export class NoScrollPuncture {
+  constructor (selector) {
+    this.dom = document.querySelector(selector)
+    this.posY = 0
+    this.maxScroll = 0
+    // 帮定事件
+    this._addEvent()
+  }
+
+  _touchStart (e) {
+    const events = e.touches[0] || e
+    // 缓存开始时y位置
+    this.posY = events.pageY
+    // 计算最大滚动距离
+    this.maxScroll = this.dom.scrollHeight - this.dom.clientHeight
+  }
+
+  _touchMove (e) {
+    // 如果没有滚动距离，禁止滚动
+    if (this.maxScroll <= 0) {
+      // 禁止滚动
+      e.preventDefault()
+    }
+    // 获取当前滚动距离
+    const scrollTop = this.dom.scrollTop
+    // 计算滚动差
+    const events = e.touches[0] || e
+    const distanceY = events.pageY - this.posY
+    // 上边缘检测
+    if (distanceY > 0 && scrollTop === 0 && e.cancelable) {
+      // 往上滑，并且到头
+      // 禁止滚动的默认行为
+      e.preventDefault()
+      return
+    }
+    // 下边缘检测
+    if (distanceY < 0 && (scrollTop + 1 >= this.maxScroll) && e.cancelable) {
+      // 往下滑，并且到头
+      // 禁止滚动的默认行为
+      e.preventDefault()
+    }
+  }
+
+  _addEvent () {
+    this.startEvent = e => {this._touchStart(e)}
+    this.endEvent = e => {this._touchMove(e)}
+    this.dom.addEventListener('touchstart', this.startEvent)
+    this.dom.addEventListener('touchmove', this.endEvent)
+  }
+
+  removeEvent () {
+    this.dom.removeEventListener('touchstart', this.startEvent)
+    this.dom.removeEventListener('touchmove', this.endEvent)
+  }
+}
+
 export default {
-  FireCounter
+  FireCounter,
+  NoScrollPuncture
 }
