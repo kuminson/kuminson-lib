@@ -1610,6 +1610,7 @@ __metadata:
     "@babel/preset-env": ^7.11.0
     "@babel/runtime": ^7.11.2
     "@babel/runtime-corejs2": ^7.11.2
+    async-validator: ^3.4.0
     babel-jest: ^26.3.0
     babel-loader: ^8.1.0
     core-js: 2
@@ -3761,6 +3762,13 @@ __metadata:
   version: 1.0.1
   resolution: "async-limiter@npm:1.0.1"
   checksum: d123312ace75c07399ddc58e06cc028dacce35f71cdf59cf9b22f6c31dde221c22285e6185ede823ecb67f3b3065e26205eb9f74fcbba3f12ce7a2c2b09d7763
+  languageName: node
+  linkType: hard
+
+"async-validator@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "async-validator@npm:3.4.0"
+  checksum: 1786557ba1079561dff375dcf21ea2ce959f68a601b0008f781af496f3e2b990b2999efc57efac64337a289ea64c81c4fa7e549388c1a3aa5486377165ab90e7
   languageName: node
   linkType: hard
 

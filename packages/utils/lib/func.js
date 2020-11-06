@@ -1,3 +1,10 @@
+import {
+  INPUTTEXTTYPE,
+  INPUTVALIDATENAME,
+  INPUTVALIDATENAMEKEY,
+  INPUTVALIDATEVALUEKEY,
+} from '../assets/constant'
+
 export default {
   /**
    * 获取当前设备类型
@@ -268,7 +275,72 @@ export default {
     let r = window.navigator.userAgent.match(/language=(.+?)(?:\/|$)/);
     if (r != null) return decodeURI(r[1]);
     return null;
+  },
+
+  /**
+   * 获取表单内容值
+   * @param {string} formSelector - form表单标签的css选择器
+   * @param {function} [transform] - 对获取的值进行转换
+   * transform  param {string} val - 获取的值
+   *            param {string} name - 值对应的名字
+   *            param {string} type - 值的类型 'input'，'select'，'other'三个中的一个
+   *            return {any} val - 返回转换后的值
+   * @return {{}} 表单的值对象
+   */
+  getInputValue (formSelector, transform) {
+    const formEl = document.querySelector(formSelector)
+
+    const itemEls = formEl.querySelectorAll(`[${INPUTVALIDATENAME}]`)
+
+    // 获取表单对象
+    const formObj = {}
+
+    const textType = INPUTTEXTTYPE
+    const checkType = ['checkbox', 'radio']
+
+    for (let item of itemEls) {
+      // 如果是输入框
+      if (item.type && textType.indexOf(item.type) !== -1) {
+        let val = item.value
+        if (typeof transform === 'function') {
+          const res = transform(val, item.dataset[INPUTVALIDATENAMEKEY], 'input')
+          val = res === undefined ? val : res
+        }
+        formObj[item.dataset[INPUTVALIDATENAMEKEY]] = val
+        continue
+      }
+      // 如果是选择
+      if (item.type && checkType.indexOf(item.type) !== -1) {
+        let val = item.value
+        if (typeof transform === 'function') {
+          const res = transform(val, item.dataset[INPUTVALIDATENAMEKEY], 'select')
+          val = res === undefined ? val : res
+        }
+        if (formObj[item.dataset[INPUTVALIDATENAMEKEY]] === undefined) {
+          formObj[item.dataset[INPUTVALIDATENAMEKEY]] = []
+        }
+        if (item.checked) {
+          formObj[item.dataset[INPUTVALIDATENAMEKEY]].push(val)
+        }
+        continue
+      }
+      // 如果是特殊类型
+      if (item.dataset[INPUTVALIDATEVALUEKEY] !== undefined) {
+        let val = item.dataset[INPUTVALIDATEVALUEKEY]
+        if (typeof transform === 'function') {
+          const res = transform(val, item.dataset[INPUTVALIDATENAMEKEY], 'other')
+          val = res === undefined ? val : res
+        }
+        formObj[item.dataset[INPUTVALIDATENAMEKEY]] = val
+      }
+
+    }
+
+    return formObj
   }
+
+
+
 }
 
 

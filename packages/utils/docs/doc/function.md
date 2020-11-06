@@ -255,3 +255,69 @@ utils.getStringBytes('麗を返す')
 utils.getUserAgentLanguage()
 // -> 'zh_Hans_HK'
 ```
+
+## getInputValue()
+
+- 描述：
+
+获取表单内容值
+
+- 参数：
+   - `{ string } formSelector` - form表单容器标签的css选择器
+   - `{ function } [transform]` - 对获取的值进行转换的方法
+      - transform 参数
+        - `{string} val` - 获取的input值
+        - `{string} name` - 值对应的名字
+        - `{string} type` - 值的类型 'input'，'select'，'other'三个中的一个
+      - transform 返回值
+        - `{any} val` - 返回转换后的值
+
+- 返回值：
+
+`{ object }` - 表单的值对象
+
+- 用法：
+
+``` js
+const formObj = utils.getInputValue('.form', (val, name, type) => {
+  // 如果是输入框 去掉前后空格
+  if (type === 'input' && typeof val === 'string') {
+    return val.trim()
+  }
+  return val
+})
+```
+
+- 备注：
+
+   - 表单的input标签要用`data-validate`属性来做标记
+
+      ``` html
+      <div class="form">
+        <input type="text" data-validate="name" value="Jack">
+      </div>
+      ```
+
+      上面的例子`name`就是`getInputValue`返回的内容值的key
+
+      ``` js
+      const formObj = utils.getInputValue('.form')
+      // formObj => {name: 'Jack'}
+      ```
+
+   - `getInputValue`还支持特殊表单值获取
+
+      只要在表单上增加`data-validate-value`属性就可以被`getInputValue`方法获取
+
+      ``` js
+      <div class="form">
+         <div data-validate="special" data-validate-value="zero"></div>
+      </div>
+      ```
+
+      特殊表单可以在其它操作后修改`data-validate-value`属性的值，然后由`getInputValue`方法获取
+
+      ``` js
+      const formObj = utils.getInputValue('.form')
+      // formObj => {special: 'zero'}
+      ```

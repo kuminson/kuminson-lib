@@ -215,3 +215,70 @@ describe('change userAgent', () => {
     expect(utils.getUserAgentLanguage()).toBe('en_JP')
   });
 })
+
+describe('test form', () => {
+  // 增加 input元素
+  beforeEach(() => {
+    window.document.body.innerHTML = `
+    <div class="form">
+      <div class="row"><input type="text" class="name" data-validate="name" placeholder="name" value="BigBrother"></div>
+      <div class="row"><input type="text" class="age" data-validate="age" placeholder="age" value="88"></div>
+      <div class="row"><input type="password" class="password" data-validate="password" placeholder="password" value="123321"></div>
+      <div class="row"><input type="password" class="confirm-password" data-validate="confirmPassword" placeholder="confirm password" value="123321"></div>
+      <div class="row"><input type="text" class="email" data-validate="email" placeholder="email" value="bb@qq.com"></div>
+      <div class="row"><textarea class="address" data-validate="address" cols="30" rows="4" placeholder="address">usa</textarea></div>
+      <div class="row"><div class="special" data-validate="special" data-validate-value="zero">zero</div></div>
+      <div class="row">
+        <label>
+          <input type="radio" class="radio" data-validate="gender" name="gender" value="male" checked>
+          男
+        </label>
+        <label>
+          <input type="radio" class="radio" data-validate="gender" name="gender" value="female">
+          女
+        </label>
+      </div>
+      <div class="row">
+        <label>
+          <input type="checkbox" class="checkbox" data-validate="equipment" name="equipment" value="mac" checked>
+          mac
+        </label>
+        <label>
+          <input type="checkbox" class="checkbox" data-validate="equipment" name="equipment" value="pc" checked>
+          pc
+        </label>
+        <label>
+          <input type="checkbox" class="checkbox" data-validate="equipment" name="equipment" value="mobile">
+          mobile
+        </label>
+      </div>
+      <div class="row">
+        <label>
+          <input type="checkbox" class="checkbox" data-validate="agreement" value="agree">
+          我已同意相关协议
+        </label>
+      </div>
+    </div>
+    `
+  })
+  // 清除 input元素 防止污染全局
+  afterEach(() => {
+    window.document.body.innerHTML = ''
+  })
+
+  test('test getInputValue', () => {
+    expect(utils.getInputValue('.form')).toEqual({
+      name: 'BigBrother',
+      age: '88',
+      password: '123321',
+      confirmPassword: '123321',
+      email: 'bb@qq.com',
+      address: 'usa',
+      special: 'zero',
+      gender: ['male'],
+      equipment: ['mac', 'pc'],
+      agreement: [],
+    })
+  })
+
+})
